@@ -23,9 +23,12 @@ app.post('/e', (req, res) => {
     res.send({xd:2});
 });
 
-app.get('/users', (req, res) => {
-    console.log("hi")
-    res.send(users[findIndex(req.body.id)]);
+app.post('/users', (req, res) => {
+    if(users[findIndex(req.body.id)]==undefined){
+        res.send({error: "User not found"});   
+    }else{
+      res.send(users[findIndex(req.body.id)]);
+    }
 });
 
 function findIndex(id){

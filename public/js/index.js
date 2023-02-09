@@ -26,5 +26,5 @@ let input = document.getElementById("input-id");
 
 let subBTN = document.getElementById("submit-BTN");
 subBTN.addEventListener("click", ()=>{
-    sendData("http://localhost:3000/users", {id:Number(input.value)}, "POST")
+    sendData("http://localhost:3000/login", {user:'user', password:'password'}, "POST")
 }); 

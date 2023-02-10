@@ -1,46 +1,45 @@
-const express = require ('express');
-const cors = require('cors');
-const session = require('express-session');
-const bd = require('./settings.js');
+import express from "express";
+import cors from "cors";
+import session from "express-session";
+import router from "./router/Routes.js";
+import bd from "./settings.js";
+//const bd = require("./settings.js");
 const app = express();
-const path = require('path');
-
 
 app.use(cors());
 app.use(express.json());
-app.set('port', 3000)
-app.use(express.static('public'));
-app.use(session({
-    secret: 'secret',
-    resave:false,
+app.set("port", 3000);
+app.use(express.static("public"));
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 1000*60*60*24,
-        httpOnly:true,
-        secure:false
-    }
-}));
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
+app.use("/", router);
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,'/public/main/index.html'));
+app.listen(app.get("port"), "", () => {
+  console.log("Server is running on port: " + app.get("port"));
 });
 
+/*app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname,'/public/main/index.html'));
+});*/
 
-app.listen(app.get('port'), '', ()=>{
-    console.log('Server is running on port: ' + app.get('port'));
-})
-
-
-
-const users = new Map();
-
+/*const users = new Map();
 app.post('/registerUser', (req, res) => {
     users.set(req.body.email, req.body.password)
     res.send({message: 'User added successfully'})
     console.log("created")
-})
+})*/
 
-app.post('/loginUser', (req, res) => {
+/*app.post('/loginUser', (req, res) => {
     
     if(users.has(req.body.email)){
         if(users.get(req.body.email) === req.body.password){
@@ -56,9 +55,9 @@ app.post('/loginUser', (req, res) => {
         res.send({message: 'User not found'})
     }
 
-})
+})*/
 
-app.get('/home', (req, res) => {
+/*app.get('/home', (req, res) => {
 
     if(req.session.logged){ 
         res.sendFile(path.join(__dirname,'/public/Logged/logged.html'));
@@ -66,4 +65,4 @@ app.get('/home', (req, res) => {
         //redirecciona pa fuera
     }
 
-})
+})*/
